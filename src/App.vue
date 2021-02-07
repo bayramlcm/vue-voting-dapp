@@ -6,13 +6,12 @@
 </template>
 
 <script>
-import Navbar from "./components/Navbar.vue";
+import Navbar from "@/views/templates/Navbar.vue";
 export default {
   name: "App",
   components: { Navbar },
-  beforeCreate () {
-    console.log('Metamask bağlantısı sağlanıyor...')
-    this.$store.dispatch('registerWeb3')
+  beforeCreate() {
+    this.$store.dispatch("registerWeb3");
   },
 };
 </script>

@@ -14,7 +14,7 @@ export default new Promise((resolve, reject) => {
         var web3 = new Web3(web3js.currentProvider)
         web3.eth.net.isListening()
             .then(() => {
-                console.log("is Connected!");
+                console.log("Metamask bağlantısı başarılı!");
                 resolve({
                     injectedWeb3: true,
                     web3() {
