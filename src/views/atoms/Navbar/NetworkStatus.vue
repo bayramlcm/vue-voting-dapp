@@ -9,7 +9,6 @@
 export default {
   computed: {
     getNetworkName() {
-      console.log(this.$store.state.web3);
       switch (this.$store.state.web3.networkId) {
         case 1:
           return "Mainnet";

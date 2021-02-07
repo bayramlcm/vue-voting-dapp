@@ -1,10 +1,29 @@
 import router from '../../router'
 export default {
-    state: {},
-    mutations: {},
+    state: {
+        login: false,
+    },
+    mutations: {
+        userLoginSet: (state, payload) => {
+            state.login = payload;
+        }
+    },
     getters: {},
     actions: {
-        userRegister({ commit, rootState }, payload) {
+        userLogin: ({ rootState, commit }) => new Promise((resolve, reject) => {
+            rootState.contracts.registerContractInstance()
+                .methods
+                .isRegistered(rootState.web3.coinbase)
+                .call((err, result) => {
+                    if (err) return reject(false);
+                    if (result === true) {
+                        commit('userLoginSet', true);
+                        return resolve(true);
+                    }
+                    return reject(false);
+                })
+        }),
+        userRegister: ({ commit, rootState }, payload) => {
             rootState.contracts.registerContractInstance()
                 .methods.register(payload.name)
                 .send({ from: rootState.web3.coinbase })
