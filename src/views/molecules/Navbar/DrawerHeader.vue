@@ -5,7 +5,7 @@
     </v-list-item-avatar>
     <v-list-item-content>
       <v-list-item-title>{{ getName }}</v-list-item-title>
-      <v-list-item-subtitle>Admin</v-list-item-subtitle>
+      <v-list-item-subtitle>{{ roleName }}</v-list-item-subtitle>
     </v-list-item-content>
   </v-list-item>
 </template>
@@ -15,6 +15,14 @@ export default {
   computed: {
     getName() {
       return this.$store.state.user.name;
+    },
+    roleName() {
+      switch (this.$store.state.user.roleLevel) {
+        case 10:
+          return "Admin";
+        default:
+          return "User";
+      }
     },
   },
 };

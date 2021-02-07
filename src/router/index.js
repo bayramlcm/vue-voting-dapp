@@ -58,7 +58,7 @@ router.beforeEach((to, from, next) => {
       } else if (store.state.web3.isInjected === true) {
         console.log("Metamask bağlantısı başarılı!");
         // Akıllı sözleşmeyi çalıştır
-        store.dispatch('contractRegister').then(() => {
+        store.dispatch('contractUsers').then(() => {
           // Kullanıcı kaydı kontrol
           store.dispatch('userLogin').then(() => {
             console.warn("Kullanıcı daha önce kayıt olmuş");

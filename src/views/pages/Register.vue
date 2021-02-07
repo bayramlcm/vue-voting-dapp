@@ -15,11 +15,7 @@ export default {
   data: () => ({
     fullname: "",
   }),
-  mounted() {
-    if (this.$store.state.web3.isInjected) {
-      this.$store.dispatch("contractRegister");
-    }
-  },
+  mounted() {},
   methods: {
     register() {
       this.$store.dispatch("userRegister", {

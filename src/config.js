@@ -1,8 +1,8 @@
-import RegisterContract from '../dapp/build/contracts/Register.json';
+import UsersContract from '../dapp/build/contracts/Users.json';
 
 export const contracts = {
-    register: {
-        contractAddress: "0xF1BD5C9f1ea9E63B16dEDceA46A4D847AEeec22a",
-        abi: RegisterContract.abi,
+    users: {
+        contractAddress: "0x1B0a609064ddD09Ce991ee15B8f079aB337bE3CB",
+        abi: UsersContract.abi,
     },
 }

@@ -1,3 +1,3 @@
-import register from './register';
+import users from './users';
 
-export const registerContract = register;
+export const usersContract = users;

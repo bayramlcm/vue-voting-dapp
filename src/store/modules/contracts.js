@@ -1,28 +1,28 @@
-import { registerContract } from '@/util/contracts'
+import { usersContract } from '@/util/contracts'
 
 export default {
     state: {
-        registerContractInstance: null,
+        usersContractInstance: null,
     },
     mutations: {
-        contractRegisterSuccess(state, payload) {
-            state.registerContractInstance = () => payload;
+        contractUsersSuccess(state, payload) {
+            state.usersContractInstance = () => payload;
         },
     },
     getters: {},
     actions: {
-        contractRegister({ commit, rootState }) {
+        contractUsers({ commit, rootState }) {
             if (!rootState.web3.isInjected) {
                 commit('notificationSet', {
                     color: 'error',
                     text: "Metamask ile bağlantı kurulamadı (Contract)",
                 });
             } else {
-                registerContract(rootState.web3.web3Instance).then(result => {
-                    console.log('Register akıllı sözleşmesi başarılı!')
-                    commit('contractRegisterSuccess', result)
+                usersContract(rootState.web3.web3Instance).then(result => {
+                    console.log('Users akıllı sözleşmesi başarılı!')
+                    commit('contractUsersSuccess', result)
                 }).catch(e => {
-                    console.log('Register akıllı sözleşmesi hata!', e)
+                    console.log('Users akıllı sözleşmesi hata!', e)
                 })
             }
         }

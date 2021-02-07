@@ -3,6 +3,7 @@ export default {
     state: {
         login: false,
         name: "",
+        roleLevel: 1,
     },
     mutations: {
         userLoginSet: (state, payload) => {
@@ -10,26 +11,24 @@ export default {
         },
         userProfileSet: (state, payload) => {
             state.name = payload.name;
+            state.roleLevel = parseInt(payload.roleLevel);
         }
     },
     getters: {},
     actions: {
         userLogin: ({ rootState, commit }) => new Promise((resolve, reject) => {
-            rootState.contracts.registerContractInstance()
+            rootState.contracts.usersContractInstance()
                 .methods
-                .getMyProfile(rootState.web3.coinbase)
+                .getUser(rootState.web3.coinbase)
                 .call((err, result) => {
-                    console.log({err, result});
                     if (err) return reject(false);
                     commit('userLoginSet', true);
-                    commit('userProfileSet', {
-                        name: result,
-                    });
+                    commit('userProfileSet', result);
                     return resolve(true);
                 })
         }),
         userRegister: ({ commit, rootState }, payload) => {
-            rootState.contracts.registerContractInstance()
+            rootState.contracts.usersContractInstance()
                 .methods.register(payload.name)
                 .send({ from: rootState.web3.coinbase })
                 .then(() => {

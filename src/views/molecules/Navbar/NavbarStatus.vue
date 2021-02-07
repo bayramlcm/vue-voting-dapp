@@ -4,15 +4,6 @@
       <metamask-status />
       <network-status />
     </span>
-    
-    <v-btn icon router to="/my">
-        <v-icon>mdi-account</v-icon>
-    </v-btn>
-    
-    
-    <v-btn icon router to="/logout">
-        <v-icon>mdi-exit-to-app</v-icon>
-    </v-btn>
   </div>
 </template>
 
