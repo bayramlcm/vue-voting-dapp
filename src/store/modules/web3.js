@@ -30,6 +30,10 @@ export default {
             }).catch(e => {
                 console.log('registerWeb3 hata!', e)
                 commit('web3Error');
+                commit('notificationSet', {
+                    color: 'error',
+                    text: "Metamask ile bağlantı kurulamadı",
+                });
             })
         }
     },

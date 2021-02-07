@@ -5,20 +5,26 @@ export default {
         registerContractInstance: null,
     },
     mutations: {
-        contractRegisterSuccess(payload) {
-            console.log('Register contract instance: ', payload)
-            // state.registerContractInstance = () => payload
+        contractRegisterSuccess(state, payload) {
+            state.registerContractInstance = () => payload;
         },
     },
     getters: {},
     actions: {
         contractRegister({ commit, rootState }) {
-            registerContract(rootState.web3.web3Instance).then(result => {
-                console.log('Register akıllı sözleşmesi başarılı!')
-                commit('contractRegisterSuccess', result)
-            }).catch(e => {
-                console.log('Register akıllı sözleşmesi hata!', e)
-            })
+            if (!rootState.web3.isInjected) {
+                commit('notificationSet', {
+                    color: 'error',
+                    text: "Metamask ile bağlantı kurulamadı",
+                });
+            } else {
+                registerContract(rootState.web3.web3Instance).then(result => {
+                    console.log('Register akıllı sözleşmesi başarılı!')
+                    commit('contractRegisterSuccess', result)
+                }).catch(e => {
+                    console.log('Register akıllı sözleşmesi hata!', e)
+                })
+            }
         }
     },
 }
