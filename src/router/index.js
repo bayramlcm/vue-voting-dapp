@@ -42,7 +42,6 @@ const router = new Router({
 router.beforeEach((to, from, next) => {
   // Kullanıcı girişi başarılı ve kayıt ekranında değilse izin ver
   if (store.state.user.login === true && '/register' !== to.path.toLowerCase()) return next();
-
   // Metamask bağlantı hatası sayfası
   if ('/metamask-error' === to.path.toLowerCase()) {
     next();
@@ -67,6 +66,8 @@ router.beforeEach((to, from, next) => {
             next();
           }).catch(() => {
             console.error("Kullanıcı daha önce kayıt olmamış");
+            // Giriş yapmamış ve register sayfasındaysa yönlendirmeden devam et
+            if ('/register' === to.path.toLowerCase()) return next();
             router.push('/register')
             next();
           });

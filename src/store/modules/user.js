@@ -2,10 +2,14 @@ import router from '../../router'
 export default {
     state: {
         login: false,
+        name: "",
     },
     mutations: {
         userLoginSet: (state, payload) => {
             state.login = payload;
+        },
+        userProfileSet: (state, payload) => {
+            state.name = payload.name;
         }
     },
     getters: {},
@@ -13,14 +17,15 @@ export default {
         userLogin: ({ rootState, commit }) => new Promise((resolve, reject) => {
             rootState.contracts.registerContractInstance()
                 .methods
-                .isRegistered(rootState.web3.coinbase)
+                .getMyProfile(rootState.web3.coinbase)
                 .call((err, result) => {
+                    console.log({err, result});
                     if (err) return reject(false);
-                    if (result === true) {
-                        commit('userLoginSet', true);
-                        return resolve(true);
-                    }
-                    return reject(false);
+                    commit('userLoginSet', true);
+                    commit('userProfileSet', {
+                        name: result,
+                    });
+                    return resolve(true);
                 })
         }),
         userRegister: ({ commit, rootState }, payload) => {

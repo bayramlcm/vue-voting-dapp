@@ -4,6 +4,7 @@
     :register="register"
     @fullnameChange="(newFullname) => (fullname = newFullname)"
   />
+  <!-- (this.fullname = newFullname) -->
 </template>
 
 <script>

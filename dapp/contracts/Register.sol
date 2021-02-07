@@ -1,7 +1,7 @@
 pragma solidity >=0.4.22 <0.9.0;
 
 contract Register {
-
+        
     struct User {
         address addr;
         string name;
@@ -23,6 +23,11 @@ contract Register {
         require(!isRegistered(_addr), "ERR_IS_REGISTERED");
         users[_addr] = User(_addr, _name);
         userCount++;
+    }
+    
+    function getMyProfile(address _addr) public view returns(string memory name) {
+        require(isRegistered(_addr), "ERR_GET_MY_PROFILE");
+        return users[_addr].name;
     }
     
     constructor() public {
