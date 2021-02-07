@@ -2,7 +2,7 @@ import RegisterContract from '../dapp/build/contracts/Register.json';
 
 export const contracts = {
     register: {
-        contractAddress: "0xf13B588AaBb6EF5EFd3E3c2778C3de2E0555cBCc",
+        contractAddress: "0xA5ccdFb9639BdC79Daa69DeB836D1D67fd39B2a4",
         abi: RegisterContract.abi,
     },
 }

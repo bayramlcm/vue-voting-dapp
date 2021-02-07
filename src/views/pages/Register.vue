@@ -8,18 +8,22 @@
 
 <script>
 import Register from "@/views/templates/Register.vue";
-/* eslint-disable */
+
 export default {
   components: { Register },
   data: () => ({
     fullname: "",
   }),
+  mounted() {
+    if (this.$store.state.web3.isInjected) {
+      this.$store.dispatch("contractRegister");
+    }
+  },
   methods: {
     register() {
-      this.$store.dispatch("contractRegister");
-      // if (this.$refs.form.validate()) {
-      //   this.$refs.form.$el.submit();
-      // }
+      this.$store.dispatch("userRegister", {
+        name: this.fullname,
+      });
     },
   },
 };

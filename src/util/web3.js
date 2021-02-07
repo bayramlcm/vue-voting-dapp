@@ -12,6 +12,7 @@ export default new Promise((resolve, reject) => {
     var web3js = window.ethereum
     if (typeof web3js !== 'undefined') {
         var web3 = new Web3(web3js)
+        web3.eth.handleRevert = true;
         web3.eth.net.isListening()
             .then(() => {
                 console.log("Metamask bağlantısı başarılı!");

@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <navbar />
-    <router-view />
+    <router-view v-if="networkConnection" />
     <notification />
   </v-app>
 </template>
@@ -17,6 +17,11 @@ export default {
   },
   beforeCreate() {
     this.$store.dispatch("registerWeb3");
+  },
+  computed: {
+    networkConnection() {
+      return this.$store.state.web3.isInjected !== null;
+    },
   },
 };
 </script>

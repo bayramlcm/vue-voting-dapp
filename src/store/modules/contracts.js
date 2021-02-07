@@ -15,7 +15,7 @@ export default {
             if (!rootState.web3.isInjected) {
                 commit('notificationSet', {
                     color: 'error',
-                    text: "Metamask ile bağlantı kurulamadı",
+                    text: "Metamask ile bağlantı kurulamadı (Contract)",
                 });
             } else {
                 registerContract(rootState.web3.web3Instance).then(result => {
