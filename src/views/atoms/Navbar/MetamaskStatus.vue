@@ -21,7 +21,7 @@
 export default {
   computed: {
     connected() {
-      return this.$store.state.web3.web3.isInjected;
+      return this.$store.state.web3.isInjected;
     },
   },
 };

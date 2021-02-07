@@ -16,6 +16,7 @@ export default {
   }),
   methods: {
     register() {
+      this.$store.dispatch("contractRegister");
       // if (this.$refs.form.validate()) {
       //   this.$refs.form.$el.submit();
       // }

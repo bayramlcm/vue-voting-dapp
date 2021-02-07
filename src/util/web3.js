@@ -9,9 +9,9 @@ import Web3 from 'web3';
 
 export default new Promise((resolve, reject) => {
     // Web3 ile metamask bağlantısını kontrol et
-    var web3js = window.web3
+    var web3js = window.ethereum
     if (typeof web3js !== 'undefined') {
-        var web3 = new Web3(web3js.currentProvider)
+        var web3 = new Web3(web3js)
         web3.eth.net.isListening()
             .then(() => {
                 console.log("Metamask bağlantısı başarılı!");

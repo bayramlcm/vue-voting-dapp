@@ -2,29 +2,23 @@ import web3 from '@/util/web3'
 
 export default {
     state: {
-        web3: {
-            isInjected: null,
-            web3Instance: null,
-            networkId: null,
-            coinbase: null,
-            balance: null,
-            error: null
-        },
-        contractInstance: null
+        isInjected: null,
+        web3Instance: null,
+        networkId: null,
+        coinbase: null,
+        balance: null,
+        error: null
     },
     mutations: {
         web3Success(state, payload) {
-            let result = payload
-            let web3Copy = state.web3
-            web3Copy.coinbase = result.coinbase
-            web3Copy.networkId = result.networkId
-            web3Copy.balance = parseInt(result.balance, 10)
-            web3Copy.isInjected = result.injectedWeb3
-            web3Copy.web3Instance = result.web3
-            state.web3 = web3Copy
+            state.coinbase = payload.coinbase;
+            state.networkId = payload.networkId;
+            state.balance = parseInt(payload.balance, 10);
+            state.isInjected = payload.injectedWeb3;
+            state.web3Instance = payload.web3;
         },
         web3Error(state) {
-            state.web3.isInjected = false;
+            state.isInjected = false;
         }
     },
     getters: {},

@@ -37,10 +37,10 @@ export default {
   data: () => ({}),
   computed: {
     getAddress() {
-      return this.$store.state.web3.web3.coinbase;
+      return this.$store.state.web3.coinbase;
     },
     connected() {
-      return this.$store.state.web3.web3.isInjected;
+      return this.$store.state.web3.isInjected;
     },
     fullnameInput: {
       get() {
