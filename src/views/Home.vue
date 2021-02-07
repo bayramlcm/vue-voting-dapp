@@ -1,11 +1,12 @@
 <template>
-  <metamask />
+  <div></div>
+  <!-- <metamask /> -->
 </template>
 
 <script>
-import Metamask from "../components/Metamask.vue";
+// import Metamask from "../components/Metamask.vue";
 export default {
-  components: { Metamask },
+  // components: { Metamask },
 };
 </script>
 
