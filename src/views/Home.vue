@@ -1,9 +1,12 @@
 <template>
-  <div>Home</div>
+  <metamask />
 </template>
 
 <script>
-export default {};
+import Metamask from "../components/Metamask.vue";
+export default {
+  components: { Metamask },
+};
 </script>
 
 <style>
