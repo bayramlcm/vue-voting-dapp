@@ -24,6 +24,11 @@ export default {
         text: "Anasayfa",
         route: "/",
       },
+      {
+        icon: "mdi-ballot-outline",
+        text: "Oylamalar",
+        route: "/votingList",
+      },
     ],
   }),
   methods: {

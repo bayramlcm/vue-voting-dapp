@@ -1,7 +1,9 @@
 <template>
   <v-app>
     <navbar />
-    <router-view v-if="networkConnection" />
+    <v-content class="mx-4 mb-4 mt-4">
+      <router-view v-if="networkConnection" />
+    </v-content>
     <notification />
   </v-app>
 </template>

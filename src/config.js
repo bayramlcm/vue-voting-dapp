@@ -1,8 +1,8 @@
-import UsersContract from '../dapp/build/contracts/Users.json';
+import VotingApp from '../dapp/build/contracts/VotingApp.json';
 
 export const contracts = {
-    users: {
-        contractAddress: "0x1B0a609064ddD09Ce991ee15B8f079aB337bE3CB",
-        abi: UsersContract.abi,
+    votingApp: {
+        contractAddress: "0xAF6cF86745eCD8F0d848506474806406D1bb206A",
+        abi: VotingApp.abi,
     },
 }

@@ -17,7 +17,7 @@ export default {
     getters: {},
     actions: {
         userLogin: ({ rootState, commit }) => new Promise((resolve, reject) => {
-            rootState.contracts.usersContractInstance()
+            rootState.contracts.contractInstance()
                 .methods
                 .getUser(rootState.web3.coinbase)
                 .call((err, result) => {
@@ -28,7 +28,7 @@ export default {
                 })
         }),
         userRegister: ({ commit, rootState }, payload) => {
-            rootState.contracts.usersContractInstance()
+            rootState.contracts.contractInstance()
                 .methods.register(payload.name)
                 .send({ from: rootState.web3.coinbase })
                 .then(() => {
