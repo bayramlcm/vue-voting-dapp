@@ -91,7 +91,9 @@ contract Votes is Users {
     mapping(address => uint) usedVotes;
 
     // Oylama oluştur
-    function createVote(string memory _subject, string memory _detail, uint _startDate, uint _endDate) public onlyAdminRole  {
+    function createVote(string memory _subject, string memory _detail, uint _endDate) public onlyAdminRole  {
+        uint _startDate = block.timestamp;
+        require(_endDate >= _startDate, "ERR_CREATE_VOTE");
         voteCount++;
         votes[voteCount] = Vote(voteCount, _subject, _detail, _startDate, _endDate, openStatus);
     }
@@ -111,7 +113,8 @@ contract Votes is Users {
         // Oylama zaten kapalıysa değiştirilemez
         require(votes[_id].status != 0, "ERR_SET_VOTE_STATUS_3");
         // Bitiş tarihini geçtiyse değiştirilemez
-        require(votes[_id].endDate > block.timestamp, "ERR_SET_BOTE_STATUS_4");
+        require(votes[_id].endDate > block.timestamp, "ERR_SET_VOTE_STATUS_4");
+        votes[_id].status = _status;
     }
     
 }
