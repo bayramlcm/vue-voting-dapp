@@ -4,6 +4,7 @@ import Vuex from 'vuex';
 import Web3 from './modules/web3';
 import Contracts from './modules/contracts';
 import User from './modules/user';
+import Users from './modules/users';
 import Voting from './modules/voting';
 import Notification from './modules/notification';
 
@@ -15,6 +16,7 @@ export default new Vuex.Store({
         web3: Web3,
         contracts: Contracts,
         user: User,
+        users: Users,
         voting: Voting,
         notification: Notification,
     },

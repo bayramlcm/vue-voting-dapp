@@ -25,6 +25,12 @@ export default {
         route: "/",
       },
       {
+        header: "Yönetim",
+        icon: "mdi-account-multiple-outline",
+        text: "Kullanıcılar",
+        route: "/userList",
+      },
+      {
         icon: "mdi-ballot-outline",
         text: "Oylamalar",
         route: "/votingList",

@@ -2,7 +2,7 @@ import VotingApp from '../dapp/build/contracts/VotingApp.json';
 
 export const contracts = {
     votingApp: {
-        contractAddress: "0x8eB15891B9954F46a3e9BC18eE1Bf2cD6BE8C32F",
+        contractAddress: "0x110Bd6A16A48D2C6606E573531101ff81201295F",
         abi: VotingApp.abi,
     },
 }

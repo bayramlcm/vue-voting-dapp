@@ -16,6 +16,11 @@ const routes = [
     component: () => import('@/views/pages/VotingList'),
   },
   {
+    path: '/userList',
+    name: 'userList',
+    component: () => import('@/views/pages/UserList'),
+  },
+  {
     path: '/register',
     name: 'Register',
     component: () => import('@/views/pages/Register'),

@@ -2,16 +2,16 @@
   <v-dialog v-model="dialog" max-width="500px">
     <v-card>
       <v-card-title>
-        <span class="headline">Oylama Durumunu Güncelle</span>
+        <span class="headline">Yetkiyi Güncelle</span>
       </v-card-title>
 
       <v-card-text>
         <v-container>
           <v-select
-            v-model="status"
+            v-model="role"
             :items="items"
             item-text="text"
-            item-value="status"
+            item-value="role"
             label="Select"
             persistent-hint
             single-line
@@ -32,21 +32,20 @@
 export default {
   props: ["dialogOpen", "dialogClose", "item"],
   data: () => ({
-    id: 0,
-    status: "0",
+    address: "",
+    role: "0",
     dialog: false,
     items: [
-      { status: "0", text: "Kapalı" },
-      { status: "1", text: "Açık" },
-      { status: "2", text: "Donduruldu" },
+      { role: "1", text: "User" },
+      { role: "10", text: "Admin" },
     ],
   }),
   methods: {
     save() {
       this.$store
-        .dispatch("votingSetStatus", {
-          id: this.id,
-          status: this.status,
+        .dispatch("usersSetRole", {
+          address: this.address,
+          role: this.role,
         })
         .then(() => this.dialog = false)
         .catch((err) => console.log("Değiştirilemedi :(", { err }));
@@ -60,16 +59,11 @@ export default {
       if (!open) this.dialogClose();
     },
     item(_item) {
-      if ("id" in _item) {
-        this.status = _item.status;
-        this.id = _item.id;
+      if ("address" in _item) {
+        this.role = _item.role;
+        this.address = _item.address;
       }
     },
-    // status(_status) {
-    //   if (_status.constructor == Object) {
-    //     this.status = _status.status;
-    //   }
-    // },
   },
   computed: {},
 };

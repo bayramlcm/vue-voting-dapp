@@ -53,6 +53,16 @@ contract Users {
         return (users[_addr].name, users[_addr].role.level);
     }
     
+    // Kullanıcı yetkisini değiştir
+    function setUserRole(address _addr, uint _roleLevel) public onlyAdminRole {
+        // Sistem sahibi kendi yetkisini değiştiremez
+        require(_addr != owner, "ERR_SET_USER_ROLE_1");
+        // Admin ve User dışındaki yetkileri kabul etme
+        require(_roleLevel == userLevel || _roleLevel == adminLevel, "ERR_SET_USER_ROLE_2");
+        if (_roleLevel == 10) users[_addr].role = adminRole;
+        else users[_addr].role = userRole;
+    }
+    
     // Tüm kullanıcılar
     function getUsers() public view returns(address[] memory) {
         address[] memory _addresses = new address[](userCount);

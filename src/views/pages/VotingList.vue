@@ -42,7 +42,6 @@
       :dialogOpen="messageDialog"
       :dialogClose="() => (messageDialog = false)"
     />
-    <v-btn color="primary" @click="create()">OLUŞTUR</v-btn>
   </div>
 </template>
 
@@ -87,7 +86,6 @@ export default {
   }),
   methods: {
     timeConverter,
-    create() {},
     editVoting(item) {
       if (item.status === "0") {
         this.messageContent = "Kapalı olan oylama durumu değiştirilemez.";
