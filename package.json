@@ -1,5 +1,5 @@
 {
-  "name": "vote-app-frontend",
+  "name": "vue-voting-dapp",
   "version": "0.1.0",
   "private": true,
   "scripts": {

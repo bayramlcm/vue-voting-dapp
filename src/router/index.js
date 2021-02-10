@@ -35,19 +35,20 @@ const router = new Router({
 });
 
 router.beforeEach((to, from, next) => {
-  // Kullanıcı girişi başarılı ve kayıt ekranında değilse izin ver
-  if (store.state.user.login === true && '/register' !== to.path.toLowerCase()) return next();
   // Metamask bağlantı hatası sayfası
-  if ('/metamaskError' === to.path.toLowerCase()) {
+  if ('/metamaskerror' === to.path.toLowerCase()) {
     next();
   } else {
+    // Kullanıcı girişi başarılı ve kayıt ekranında değilse izin ver
+    if (store.state.user.login === true && '/register' !== to.path.toLowerCase()) return next();
+
     let interval = setInterval(() => {
       // Metamask bağlanamazsa yönlendir
       if (store.state.web3.isInjected !== null) clearInterval(interval);
 
       if (store.state.web3.isInjected === false) {
         console.log("Metamask bağlantısı kurulamadı!");
-        router.push('/metamaskError');
+        router.push('/metamaskerror');
         next();
 
       } else if (store.state.web3.isInjected === true) {
