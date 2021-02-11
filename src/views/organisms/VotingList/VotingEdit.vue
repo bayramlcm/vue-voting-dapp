@@ -65,11 +65,6 @@ export default {
         this.id = _item.id;
       }
     },
-    // status(_status) {
-    //   if (_status.constructor == Object) {
-    //     this.status = _status.status;
-    //   }
-    // },
   },
   computed: {},
 };

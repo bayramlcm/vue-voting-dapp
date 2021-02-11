@@ -3,7 +3,7 @@ export default {
     state: {
         login: false,
         name: "",
-        roleLevel: 1,
+        role: 1,
     },
     mutations: {
         userLoginSet: (state, payload) => {
@@ -11,7 +11,7 @@ export default {
         },
         userProfileSet: (state, payload) => {
             state.name = payload.name;
-            state.roleLevel = parseInt(payload.roleLevel);
+            state.role = parseInt(payload.roleLevel);
         }
     },
     getters: {},

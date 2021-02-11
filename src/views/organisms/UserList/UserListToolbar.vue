@@ -3,6 +3,7 @@
     <v-toolbar-title>Kullanıcı Listesi</v-toolbar-title>
     <v-divider class="mx-4" inset vertical></v-divider>
     <v-text-field
+      v-model="search"
       append-icon="mdi-magnify"
       label="Ara"
       single-line
@@ -12,7 +13,17 @@
 </template>
 
 <script>
-export default {};
+export default {
+  props: ["setSearch"],
+  data: () => ({
+    search: "",
+  }),
+  watch: {
+    search(_str) {
+      this.setSearch(_str);
+    },
+  },
+};
 </script>
 
 <style>

@@ -17,7 +17,7 @@ export default {
       return this.$store.state.user.name;
     },
     roleName() {
-      switch (this.$store.state.user.roleLevel) {
+      switch (this.$store.state.user.role) {
         case 10:
           return "Admin";
         default:

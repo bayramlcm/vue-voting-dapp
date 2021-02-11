@@ -2,14 +2,14 @@
   <div>
     <v-data-table
       :loading="loading"
-      loading-text="Oylama listesi alınıyor..."
+      loading-text="Oy listesi alınıyor..."
       :headers="headers"
       :items="votingList"
       :search="search"
       class="elevation-1"
     >
       <template v-slot:top>
-        <voting-list-toolbar :setSearch="(newSearch) => (search = newSearch)" />
+        <vote-list-toolbar :setSearch="(newSearch) => (search = newSearch)" />
       </template>
       <!-- Başlangıç Tarihi -->
       <template v-slot:[`item.startDate`]="{ item }">
@@ -26,44 +26,55 @@
         </v-chip>
       </template>
       <template v-slot:[`item.process`]="{ item }">
-        <v-icon small class="mr-2" @click="editVoting(item)">mdi-pencil</v-icon>
+        <v-btn
+          color="primary"
+          class="mr-4"
+          small
+          :disabled="item.status !== '1' || item.used"
+          @click="useVote(item)"
+        >
+          <span v-if="item.used">KULLANILDI</span>
+          <span v-if="!item.used && item.status === '1'">OY KULLAN</span>
+          <span v-if="!item.used && item.status !== '1'">OYLAMA KAPALI</span>
+        </v-btn>
+        <!-- <v-icon small class="mr-2" @click="editVoting(item)">mdi-pencil</v-icon> -->
       </template>
       <!-- Bulunamadı -->
       <template v-slot:no-data>Oylamalar bulunamadı</template>
     </v-data-table>
-    <voting-edit
-      :dialogOpen="votingEditDialog"
-      :item="editItem"
-      :dialogClose="() => (votingEditDialog = false)"
-    />
-    <voting-message
+    <vote-message
       :title="messageTitle"
       :content="messageContent"
       :dialogOpen="messageDialog"
       :dialogClose="() => (messageDialog = false)"
     />
+    <vote-dialog
+      :item="voteItem"
+      :dialogOpen="voteDialog"
+      :dialogClose="() => (voteDialog = false)"
+    />
   </div>
 </template>
 
 <script>
-import VotingEdit from "@/views/organisms/VotingList/VotingEdit.vue";
-import VotingListToolbar from "@/views/organisms/VotingList/VotingListToolbar.vue";
-import VotingMessage from "@/views/organisms/VotingList/VotingMessage.vue";
+import VoteListToolbar from "@/views/organisms/VoteList/VoteListToolbar.vue";
+import VoteMessage from "@/views/organisms/VoteList/VoteMessage.vue";
 
 import { timeConverter } from "@/util/atom";
+import VoteDialog from "@/views/organisms/VoteList/VoteDialog.vue";
 
 export default {
-  components: { VotingListToolbar, VotingEdit, VotingMessage },
+  components: { VoteListToolbar, VoteMessage, VoteDialog },
   mounted() {
-    this.$store.dispatch("voting").then(() => {
+    this.$store.dispatch("votes").then(() => {
       this.loading = false;
     });
   },
   data: () => ({
     loading: true,
     dialog: false,
-    votingEditDialog: false,
-    editItem: {},
+    voteDialog: false,
+    voteItem: {},
     headers: [
       { text: "Id", value: "id" },
       { text: "Oylama Konusu", value: "subject" },
@@ -86,22 +97,14 @@ export default {
   }),
   methods: {
     timeConverter,
-    editVoting(item) {
-      if (item.status === "0") {
-        this.messageContent = "Kapalı olan oylama durumu değiştirilemez.";
-        this.messageDialog = true;
-      } else if (+new Date() / 1000 > parseInt(item.endDate)) {
-        this.messageContent = "Bitiş tarihi geçmiş oylama değiştirilemez.";
-        this.messageDialog = true;
-      } else {
-        this.editItem = { ...item };
-        this.votingEditDialog = true;
-      }
+    useVote(item) {
+      this.voteItem = item;
+      this.voteDialog = true;
     },
   },
   computed: {
     votingList() {
-      return this.$store.state.voting.votingList;
+      return this.$store.state.votes.votesList;
     },
   },
 };

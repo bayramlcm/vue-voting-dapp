@@ -16,6 +16,11 @@ const routes = [
     component: () => import('@/views/pages/VotingList'),
   },
   {
+    path: '/voteList',
+    name: "VoteList",
+    component: () => import("@/views/pages/VoteList"),
+  },
+  {
     path: '/userList',
     name: 'userList',
     component: () => import('@/views/pages/UserList'),

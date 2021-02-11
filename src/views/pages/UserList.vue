@@ -9,7 +9,7 @@
       class="elevation-1"
     >
       <template v-slot:top>
-        <user-list-toolbar />
+        <user-list-toolbar :setSearch="(newSearch) => (search = newSearch)" />
       </template>
       <!-- Yetki -->
       <template v-slot:[`item.role`]="{ item }">

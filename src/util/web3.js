@@ -10,6 +10,7 @@ import Web3 from 'web3';
 export default new Promise((resolve, reject) => {
     // Web3 ile metamask bağlantısını kontrol et
     var web3js = window.ethereum
+    console.log({ web3js });
     if (typeof web3js !== 'undefined') {
         var web3 = new Web3(web3js)
         web3.eth.handleRevert = true;
@@ -39,16 +40,23 @@ export default new Promise((resolve, reject) => {
             .catch(() => reject(new Error('Metamask, network Id verisi alınamadı')));
     })
 }).then(result => {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
         // Metamask'tan kullanıcı hesap bilgisini alır
-        result.web3().eth.getCoinbase((err, coinbase) => {
-            if (err) {
-                reject(new Error('Metamask hesap bilgisi alınamadı'))
-            } else {
-                result = Object.assign({}, result, { coinbase })
-                resolve(result)
-            }
-        })
+        if (result.web3().currentProvider.enable) {
+            result.web3().currentProvider.enable().then(function (accounts) {
+                resolve(Object.assign({}, result, { coinbase: accounts[0] }))
+            });
+        } else {
+            resolve(Object.assign({}, result, { coinbase: result.web3().eth.accounts[0] }))
+        }
+        // result.web3().eth.getCoinbase((err, coinbase) => {
+        //     if (err) {
+        //         reject(new Error('Metamask hesap bilgisi alınamadı'))
+        //     } else {
+        //         result = Object.assign({}, result, { coinbase })
+        //         resolve(result)
+        //     }
+        // })
     })
 }).then(result => {
     return new Promise((resolve, reject) => {

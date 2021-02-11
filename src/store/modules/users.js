@@ -66,9 +66,8 @@ export default {
                     .getUser(address)
                     .call()
                 commit('usersAdd', { ...user, address });
-
+                resolve();
             })
-            resolve();
         })),
         // Yetkiyi değiştir
         usersSetRole: (({ commit, rootState }, payload) => new Promise((resolve, reject) => {

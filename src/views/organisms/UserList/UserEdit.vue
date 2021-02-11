@@ -21,7 +21,7 @@
 
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="blue darken-1" text>İptal</v-btn>
+        <v-btn color="blue darken-1" text @click="dialogClose()">İptal</v-btn>
         <v-btn color="blue darken-1" text @click="save()">Güncelle</v-btn>
       </v-card-actions>
     </v-card>

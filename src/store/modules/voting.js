@@ -103,6 +103,8 @@ export default {
                     .methods
                     .getVote(i)
                     .call()
+                // Bitiş tarihi kontrolü
+                if (+new Date() / 1000 > vote.endDate) vote.status = '0';
                 commit('votingAdd', vote);
             }
             resolve();
