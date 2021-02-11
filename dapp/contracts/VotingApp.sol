@@ -161,6 +161,32 @@ contract Votes is Users {
         require(usedVotes[_id].addr != address(0), "ERR_USED_VOTE");
         return usedVotes[_id].vote;
     }
+    
+    // Evet olarak kullanılan oy sayısı
+    function usedVoteYes(uint _id) public view returns (uint _count) {
+        // Böyle bir oylama yoksa sonuç alamaz
+        require(votes[_id].id != 0, "ERR_USED_VOTES_YES");
+        uint count = 0;
+        for (uint i = 1; i <= usedVoteCount; i++) {
+            if (usedVotes[i].voteId == _id && usedVotes[i].vote == true) {
+                count++;
+            }
+        }
+        return count;
+    }
+    
+    // Hayır olarak kullanılan oy sayısı
+    function usedVoteNo(uint _id) public view returns (uint _count) {
+        // Böyle bir oylama yoksa sonuç alamaz
+        require(votes[_id].id != 0, "ERR_USED_VOTES_YES");
+        uint count = 0;
+        for (uint i = 1; i <= usedVoteCount; i++) {
+            if (usedVotes[i].voteId == _id && usedVotes[i].vote == false) {
+                count++;
+            }
+        }
+        return count;
+    }
 
     // Oylama oluştur
     function createVote(string memory _subject, string memory _detail, uint _endDate) public onlyAdminRole  {

@@ -105,11 +105,20 @@ export default {
                             break;
                     }
                     switch (err.reason) {
-                        case "ERR_ONLY_ADMIN_ROLE":
-                            message = "Bu işlem için yetkiniz bulunmamaktadır"
+                        case "ERR_USE_VOTE_1":
+                            message = "Kayıtlı değilsiniz, oy kullanamazsınız"
                             break;
-                        case "ERR_CREATE_VOTE":
-                            message = "Bitiş tarihi bugünden büyük olmalıdır"
+                        case "ERR_USE_VOTE_2":
+                            message = "Böyle bir oylama bulunamadı"
+                            break;
+                        case "ERR_USE_VOTE_3":
+                            message = "Daha önce oy kullandınız"
+                            break;
+                        case "ERR_USE_VOTE_4":
+                            message = "Kapalı olan oylamayı kullanmazsınız"
+                            break;
+                        case "ERR_USE_VOTE_5":
+                            message = "Bitiş tarihi geçen oylamayı kullanmazsınız"
                             break;
                         default:
                             break;

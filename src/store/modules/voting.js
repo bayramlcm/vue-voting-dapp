@@ -109,9 +109,20 @@ export default {
             }
             resolve();
         })),
+        // Oylama detaylarını getir
+        votingGetDetail: (({ rootState }, payload) => new Promise(async (resolve) => {
+            const voteYes = await rootState.contracts.contractInstance()
+                .methods
+                .usedVoteYes(payload)
+                .call()
+            const voteNo = await rootState.contracts.contractInstance()
+                .methods
+                .usedVoteNo(payload)
+                .call()
+            resolve({ yes: parseInt(voteYes), no: parseInt(voteNo), total: parseInt(voteYes) + parseInt(voteNo) });
+        })),
         // Oylama durumunu değiştir
         votingSetStatus: (({ commit, rootState }, payload) => new Promise((resolve, reject) => {
-            console.log(payload.id, payload.status);
             rootState.contracts.contractInstance()
                 .methods
                 .setVoteStatus(payload.id, payload.status)

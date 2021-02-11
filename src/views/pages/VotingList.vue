@@ -7,6 +7,7 @@
       :items="votingList"
       :search="search"
       class="elevation-1"
+      show-expand
     >
       <template v-slot:top>
         <voting-list-toolbar :setSearch="(newSearch) => (search = newSearch)" />
@@ -25,8 +26,15 @@
           {{ statusItems[item.status].text }}
         </v-chip>
       </template>
+      <!-- Oylamayı Güncelle -->
       <template v-slot:[`item.process`]="{ item }">
         <v-icon small class="mr-2" @click="editVoting(item)">mdi-pencil</v-icon>
+      </template>
+      <!-- Alt satır -->
+      <template v-slot:expanded-item="{ item }">
+        <td :colspan="headers.length">
+          <voting-detail :item="item" />
+        </td>
       </template>
       <!-- Bulunamadı -->
       <template v-slot:no-data>Oylamalar bulunamadı</template>
@@ -51,9 +59,10 @@ import VotingListToolbar from "@/views/organisms/VotingList/VotingListToolbar.vu
 import VotingMessage from "@/views/organisms/VotingList/VotingMessage.vue";
 
 import { timeConverter } from "@/util/atom";
+import VotingDetail from "@/views/organisms/VotingList/VotingDetail.vue";
 
 export default {
-  components: { VotingListToolbar, VotingEdit, VotingMessage },
+  components: { VotingListToolbar, VotingEdit, VotingMessage, VotingDetail },
   mounted() {
     this.$store.dispatch("voting").then(() => {
       this.loading = false;
@@ -63,6 +72,7 @@ export default {
     loading: true,
     dialog: false,
     votingEditDialog: false,
+    expanded: false,
     editItem: {},
     headers: [
       { text: "Id", value: "id" },
