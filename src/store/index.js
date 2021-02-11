@@ -7,6 +7,7 @@ import User from './modules/user';
 import Users from './modules/users';
 import Voting from './modules/voting';
 import Votes from './modules/votes';
+import Home from './modules/home';
 import Notification from './modules/notification';
 
 Vue.use(Vuex);
@@ -20,6 +21,7 @@ export default new Vuex.Store({
         users: Users,
         voting: Voting,
         votes: Votes,
+        home: Home,
         notification: Notification,
     },
 });

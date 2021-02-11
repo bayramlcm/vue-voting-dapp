@@ -73,9 +73,14 @@ export default {
                     if (err) return reject();
                     let used = {};
                     for (let i = 0; i < result.length; i++) {
-                        const vote = await dispatch('votesGetUsedVote', result[i]);
-                        used[result[i]] = vote;
+                        try {
+                            const vote = await dispatch('votesGetUsedVote', result[i]);
+                            used[vote[0]] = true;
+                        } catch (err) {
+                            console.log({ err });
+                        }
                     }
+                    console.log({ result, used });
                     commit('votesSetUsed', used);
                     return resolve(result);
                 })
@@ -133,7 +138,8 @@ export default {
                 .methods
                 .usedVote(payload)
                 .call(async (err, result) => {
-                    if (err) return reject(false);
+                    console.log({ payload });
+                    if (err) return reject(err);
                     return resolve(result);
                 })
         }),
