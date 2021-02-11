@@ -184,29 +184,37 @@ contract Votes is Users {
     }
 
     // Kullanıcının kullandığı oy sayısı
-    function userUsedVoteCount(address _addr) public view returns (uint256) {
-        uint256 count = 0;
+    function userUsedVoteCount(address _addr)
+        public
+        view
+        returns (uint256 count)
+    {
+        uint256 _count = 0;
         for (uint256 i = 1; i <= usedVoteCount; i++) {
             if (address(usedVotes[i].addr) == address(_addr)) {
-                count++;
+                _count++;
             }
         }
-        return count;
+        return _count;
     }
 
     // Kullanıcının kullanmadığı oy sayısı
-    function userUnusedVoteCount(address _addr) public view returns (uint256) {
-        uint256 count = 0;
+    function userUnusedVoteCount(address _addr)
+        public
+        view
+        returns (uint256 count)
+    {
+        uint256 _count = 0;
         for (uint256 i = 1; i <= usedVoteCount; i++) {
             if (address(usedVotes[i].addr) == address(_addr)) {
-                count++;
+                _count++;
             }
         }
-        return voteCount - count;
+        return voteCount - _count;
     }
 
     // Kullanılan oy bilgisi
-    function usedVote(uint256 _id) public view returns (uint256, bool) {
+    function usedVote(uint256 _id) public view returns (uint256 id, bool vote) {
         // Böyle bir kullanılan oy yoksa hata döndür
         require(usedVotes[_id].addr != address(0), "ERR_USED_VOTE");
         return (usedVotes[_id].voteId, usedVotes[_id].vote);
@@ -228,7 +236,7 @@ contract Votes is Users {
     // Hayır olarak kullanılan oy sayısı
     function usedVoteNo(uint256 _id) public view returns (uint256 _count) {
         // Böyle bir oylama yoksa sonuç alamaz
-        require(votes[_id].id != 0, "ERR_USED_VOTES_YES");
+        require(votes[_id].id != 0, "ERR_USED_VOTES_NO");
         uint256 count = 0;
         for (uint256 i = 1; i <= usedVoteCount; i++) {
             if (usedVotes[i].voteId == _id && usedVotes[i].vote == false) {
