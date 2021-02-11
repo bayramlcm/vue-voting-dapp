@@ -47,6 +47,13 @@ contract Users {
         userCount++;
     }
     
+    // İsim bilgisini güncelle
+    function setName(string memory _name) public {
+        address _addr = msg.sender;
+        require(isRegistered(_addr), "ERR_SET_NAME_1");
+        users[_addr].name = _name;
+    }
+    
     // Kullanıcı bilgisini getir
     function getUser(address _addr) public view returns(string memory name, uint roleLevel) {
         require(isRegistered(_addr), "ERR_GET_MY_PROFILE");
@@ -97,8 +104,63 @@ contract Votes is Users {
     uint freezeStatus = 2;
     
     mapping(uint => Vote) public votes;
+
     
-    mapping(address => uint) usedVotes;
+    struct userVote {
+        address addr;
+        uint voteId;
+        bool vote;
+    }
+    
+    uint usedVoteCount = 0;
+    mapping(uint => userVote) public usedVotes;
+    
+    // Oy kullan
+    function useVote(uint _id, bool _vote) public {
+        address _addr = msg.sender;
+        // Kayıtlı değilse oy kullanamaz
+        require(isRegistered(_addr), "ERR_USE_VOTE_1");
+        // Bulunmayan oylama kullanılamaz
+        require(votes[_id].id != 0, "ERR_USE_VOTE_2");
+        // Daha önce oy kullanıldıysa kullanılamaz
+        for (uint i = 1; i <= usedVoteCount; i++) {
+            if (address(usedVotes[i].addr) == address(_addr)) {
+                require(usedVotes[i].voteId != _id, "ERR_USE_VOTE_3");
+            }
+        }
+        // Oylama zaten kapalıysa kullanılamaz
+        require(votes[_id].status != 0, "ERR_USE_VOTE_4");
+        // Bitiş tarihini geçtiyse kullanılamaz
+        require(votes[_id].endDate > block.timestamp, "ERR_USE_VOTE_5");
+        usedVoteCount++;
+        usedVotes[usedVoteCount] = userVote(_addr, _id, _vote);
+    }
+    
+    // Kullanıcının kullandığı oylar
+    function usedVoteList(address _addr) public view returns(uint[] memory) {
+        uint count = 0;
+        uint index = 0;
+        for (uint i = 1; i <= usedVoteCount; i++) {
+            if (address(usedVotes[i].addr) == address(_addr)) {
+                count++;
+            }
+        }
+        uint[] memory ids = new uint[](count);
+        for (uint i = 1; i <= usedVoteCount; i++) {
+            if (address(usedVotes[i].addr) == address(_addr)) {
+                ids[index] = i;
+                index++;
+            }
+        }
+        return ids;
+    }
+    
+    // Kullanılan oy bilgisi
+    function usedVote(uint _id) public view returns(bool) {
+        // Böyle bir kullanılan oy yoksa hata döndür
+        require(usedVotes[_id].addr != address(0), "ERR_USED_VOTE");
+        return usedVotes[_id].vote;
+    }
 
     // Oylama oluştur
     function createVote(string memory _subject, string memory _detail, uint _endDate) public onlyAdminRole  {
