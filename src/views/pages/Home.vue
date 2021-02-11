@@ -1,23 +1,21 @@
 <template>
-  <div>
-    <div v-if="!load" class="mx-auto">
-      <v-container class="fill-height">
+  <v-container :class="!load ? 'fill-height' : ''">
+    <v-row v-if="!load" align="center" justify="center">
+      <v-col class="text-center">
         <v-progress-circular
           :size="70"
           :width="7"
           color="primary"
           indeterminate
         ></v-progress-circular>
-      </v-container>
-    </div>
+      </v-col>
+    </v-row>
     <div v-if="load">
-      <v-container>
-        <home-header />
-        <home-user />
-        <home-admin v-if="role === 10" />
-      </v-container>
+      <home-header />
+      <home-user />
+      <home-admin v-if="role === 10" />
     </div>
-  </div>
+  </v-container>
 </template>
 
 <script>
