@@ -80,7 +80,6 @@ export default {
                             console.log({ err });
                         }
                     }
-                    console.log({ result, used });
                     commit('votesSetUsed', used);
                     return resolve(result);
                 })
@@ -161,6 +160,8 @@ export default {
                     .methods
                     .getVote(i)
                     .call()
+                // Bitiş tarihi kontrolü
+                if (+new Date() / 1000 > vote.endDate) vote.status = '0';
                 let used = vote.id in state.votesUsed;
                 commit('votesAdd', { ...vote, used });
             }
